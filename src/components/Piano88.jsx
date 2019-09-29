@@ -55,6 +55,7 @@ class Piano88 extends React.Component {
 
 
     return (
+      <div className="piano-88">
       <svg width="100%" height="100%" viewBox="0 0 4052 500" version="1.1">
         <rect
           id="a3"
@@ -1201,6 +1202,7 @@ class Piano88 extends React.Component {
           className="black-key"
         />
       </svg>
+      </div>
     );
   }
 }
