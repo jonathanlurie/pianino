@@ -132,23 +132,31 @@ class ChordLogic {
   static getChordFromRoot(rootKey, chordName, inversion=0){
     let chordData = ChordLogic.getChordDataByName(chordName)
 
-    if(!chordData)
+    if(!chordData){
+      console.warn('No chord names ', chordName)
       return null
+    }
 
-    if(inversion < 0 || inversion > chordData.intervals.length)
+    if(inversion < 0 || inversion > chordData.intervals.length){
+      console.warn('The inversion index is out of range')
       return null
+    }
 
     let rootPosition = Piano88KeyLogic.getIndex(rootKey)
 
-    if(rootPosition === null)
+    if(rootPosition === null){
+      console.warn('The root key does not exist', rootPosition)
       return null
+    }
 
     let chord = chordData.intervals[inversion]
       .map(index => index + rootPosition)
       .map(index => Piano88KeyLogic.getName(index))
 
-    if(chord.includes(null))
+    if(chord.includes(null)){
+      console.warn('Part of the chord is outside the piano');
       return null
+    }
 
     return chord
   }

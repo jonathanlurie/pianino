@@ -1,3 +1,4 @@
+import AppStore from '../AppStore'
 import React from 'react'
 import ChordLogic from '../ChordLogic'
 
@@ -12,28 +13,56 @@ class ChordSelector extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      selectedChord: null
+    }
+
+    AppStore.set('chordInversion', 0)
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleChangeInversion = this.handleChangeInversion.bind(this)
   }
 
-  handleChange(evt){
-    console.log(evt)
+  handleChange(chordName){
+    AppStore.set('chord', chordName)
+    AppStore.set('chordInversion', 0)
+    this.setState({selectedChord: chordName})
+  }
+
+  handleChangeInversion(invIndex){
+    AppStore.set('chordInversion', invIndex)
   }
 
 
   render(){
     let chordNames = ChordLogic.getAvailableChord()
-    let options = chordNames.map(name => <Option value={name} key={name}>{name}</Option>)
-    console.log(options)
+    let chordOptions = [
+      <Option value={null} key="None">None</Option>,
+      ...chordNames.map(name => <Option value={name} key={name}>{name}</Option>)
+    ]
 
+
+    let selectInversion = null
+    if(this.state.selectedChord){
+      let chordData = ChordLogic.getChordDataByName(this.state.selectedChord)
+      let inversionOptions = chordData.intervals.map((inv, i) =>
+        <Option value={i} key={i}>{'inverion #' + i}</Option>
+      )
+      selectInversion = (
+        <Select defaultValue={0} style={{ width: '300px' }} onChange={(invIndex) => this.handleChangeInversion(invIndex)}>
+          {inversionOptions}
+        </Select>
+      )
+    }
 
     return (
       <div>
-        <Select defaultValue={chordNames[0]} style={{ width: '300px' }} onChange={(evt) => this.handleChange(evt)}>
-          {options}
+        <Select defaultValue={null} style={{ width: '300px' }} onChange={(chordName) => this.handleChange(chordName)}>
+          {chordOptions}
         </Select>
-        <Button type="primary">Primary</Button>
+
+        {selectInversion}
+
       </div>
     )
   }

@@ -8,23 +8,23 @@
   transition: 0.2s;
 }
 
-.white-key:hover {
+/* .white-key:hover {
   fill: #AFF;
-}
+} */
 
-.white-key:active {
+/* .white-key:active {
   fill: #5DD;
-}
+} */
 
 .black-key {
   fill: #000;
   transition: 0.2s;
 }
 
-.black-key:hover {
+/* .black-key:hover {
   fill: #338;
-}
+} */
 
-.black-key:active {
+/* .black-key:active {
   fill: #44B;
-}
+} */

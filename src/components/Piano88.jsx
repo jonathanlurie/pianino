@@ -1,12 +1,15 @@
+import AppStore from '../AppStore'
 import React from "react";
 import './Piano88.css'
 import Piano88KeyLogic from '../Piano88KeyLogic'
+import ChordLogic from '../ChordLogic'
 
 class Piano88 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      keysDown: []
+      keysDown: [],
+      keysHovered: []
     };
 
     this.onKeyMouseDown = this.onKeyMouseDown.bind(this)
@@ -33,24 +36,45 @@ class Piano88 extends React.Component {
 
   onKeyMouseEnter(keyId){
     console.log('mouse enter', keyId);
+
+    let keyHovered = [keyId]
+
+    // is there a chord selected in store?
+    let chord = AppStore.get('chord')
+    if(chord){
+      let keysInChord = ChordLogic.getChordFromRoot(keyId, chord, AppStore.get('chordInversion'))
+
+      if(keysInChord){
+        keyHovered = keysInChord
+      }
+    }
+
+    this.setState({keysHovered: keyHovered})
   }
 
 
   onKeyMouseLeave(keyId){
-    console.log('mouse leave ', keyId);
+    // console.log('mouse leave ', keyId);
+    this.setState({keysHovered: []})
   }
 
   onKeyMouseUp(keyId){
     console.log('mouse up ', keyId);
+    this.setState({keysDown: []})
   }
 
 
   render() {
     let keyDownStyle = {
-      fill: "#F00"
+      fill: "#e481ff"
+    }
+
+    let keyHoveredStyle = {
+      fill: "#7fffd4"
     }
 
     let keyStyle = {}
+    this.state.keysHovered.forEach(k => keyStyle[k] = keyHoveredStyle)
     this.state.keysDown.forEach(k => keyStyle[k] = keyDownStyle)
 
 
@@ -950,8 +974,8 @@ class Piano88 extends React.Component {
           style={keyStyle["d6f"]}
           onMouseDown={() => this.onKeyMouseDown("d6f")}
           onMouseUp={() => this.onKeyMouseUp("d6f")}
-          onMouseEnter={() => this.onKeyMouseEnter()}
-          onMouseLeave={() => this.onKeyMouseLeave()}
+          onMouseEnter={() => this.onKeyMouseEnter("d6f")}
+          onMouseLeave={() => this.onKeyMouseLeave("d6f")}
           className="black-key"
         />
         <rect
