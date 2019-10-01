@@ -31,6 +31,20 @@ class Piano88 extends React.Component {
 
   onKeyMouseDown(keyId){
     console.log('mouse down', keyId);
+
+    let keyDown = [keyId]
+
+    // is there a chord selected in store?
+    let chord = AppStore.get('chord')
+    if(chord){
+      let keysInChord = ChordLogic.getChordFromRoot(keyId, chord, AppStore.get('chordInversion'))
+
+      if(keysInChord){
+        keyDown = keysInChord
+      }
+    }
+
+    this.setState({keysDown: keyDown})
   }
 
 

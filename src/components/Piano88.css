@@ -5,7 +5,7 @@
 
 .white-key {
   fill: #FFF;
-  transition: 0.2s;
+  transition: 0.1s;
 }
 
 /* .white-key:hover {
@@ -18,7 +18,7 @@
 
 .black-key {
   fill: #000;
-  transition: 0.2s;
+  transition: 0.1s;
 }
 
 /* .black-key:hover {

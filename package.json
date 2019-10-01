@@ -2,6 +2,7 @@
   "name": "pianino",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "antd": "^3.23.5",
     "react": "^16.10.0",

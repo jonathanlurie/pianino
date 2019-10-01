@@ -14,23 +14,30 @@ class ChordSelector extends React.Component {
     super(props)
 
     this.state = {
-      selectedChord: null
+      selectedChord: null,
+      selectedInversion: 0
     }
 
     AppStore.set('chordInversion', 0)
 
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChangeChord = this.handleChangeChord.bind(this)
     this.handleChangeInversion = this.handleChangeInversion.bind(this)
   }
 
-  handleChange(chordName){
+
+  handleChangeChord(chordName){
     AppStore.set('chord', chordName)
     AppStore.set('chordInversion', 0)
-    this.setState({selectedChord: chordName})
+    this.setState({
+      selectedChord: chordName,
+      selectedInversion: 0
+    })
   }
+
 
   handleChangeInversion(invIndex){
     AppStore.set('chordInversion', invIndex)
+    this.setState({selectedInversion: invIndex })
   }
 
 
@@ -41,15 +48,27 @@ class ChordSelector extends React.Component {
       ...chordNames.map(name => <Option value={name} key={name}>{name}</Option>)
     ]
 
+    let selectChord = (
+      <Select defaultValue={null} style={{ width: '300px' }} onChange={(chordName) => this.handleChangeChord(chordName)}>
+        {chordOptions}
+      </Select>
+    )
+
 
     let selectInversion = null
     if(this.state.selectedChord){
       let chordData = ChordLogic.getChordDataByName(this.state.selectedChord)
       let inversionOptions = chordData.intervals.map((inv, i) =>
-        <Option value={i} key={i}>{'inverion #' + i}</Option>
+        <Option value={i} key={i}>{'inversion #' + i}</Option>
       )
+
       selectInversion = (
-        <Select defaultValue={0} style={{ width: '300px' }} onChange={(invIndex) => this.handleChangeInversion(invIndex)}>
+        <Select
+          defaultValue={this.state.selectedInversion}
+          style={{ width: '300px' }}
+          value={this.state.selectedInversion}
+          onChange={(invIndex) => this.handleChangeInversion(invIndex)}
+        >
           {inversionOptions}
         </Select>
       )
@@ -57,12 +76,8 @@ class ChordSelector extends React.Component {
 
     return (
       <div>
-        <Select defaultValue={null} style={{ width: '300px' }} onChange={(chordName) => this.handleChange(chordName)}>
-          {chordOptions}
-        </Select>
-
+        {selectChord}
         {selectInversion}
-
       </div>
     )
   }
