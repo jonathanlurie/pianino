@@ -1,9 +1,7 @@
 import AppStore from '../AppStore'
 import React from 'react'
 import ChordLogic from '../ChordLogic'
-
 import { Select } from 'antd';
-import { Button } from 'antd';
 const { Option } = Select;
 
 
@@ -44,7 +42,7 @@ class ChordSelector extends React.Component {
   render(){
     let chordNames = ChordLogic.getAvailableChord()
     let chordOptions = [
-      <Option value={null} key="None">None</Option>,
+      <Option value={null} key="None">Single key</Option>,
       ...chordNames.map(name => <Option value={name} key={name}>{name}</Option>)
     ]
 
@@ -75,8 +73,13 @@ class ChordSelector extends React.Component {
     }
 
     return (
-      <div>
+      <div style={{
+        marginTop: '20px',
+        marginBottom: '20px',
+        display: 'flex',
+      }}>
         {selectChord}
+        <div style={{width: '20px'}}/>
         {selectInversion}
       </div>
     )

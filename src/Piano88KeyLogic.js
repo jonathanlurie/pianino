@@ -4,8 +4,8 @@ const keyList = ['a0', 'b0f', 'b0', 'c1', 'd1f', 'd1', 'e1f', 'e1', 'f1', 'g1f',
 const keyLocation = {} // {'a0': 0, 'b0f': 1, ...}
 keyList.forEach((k, i) => keyLocation[k] = i)
 
-console.log(keyList)
-console.log(keyLocation)
+// console.log(keyList)
+// console.log(keyLocation)
 
 class Piano88KeyLogic {
 
@@ -16,7 +16,7 @@ class Piano88KeyLogic {
    * @return {number} position o the key on the keyboard (firt is 0)
    */
   static getIndex(refKey){
-    console.log('refKey', refKey);
+    // console.log('refKey', refKey);
     if(!(refKey in keyLocation))
       return null
 
@@ -76,6 +76,13 @@ class Piano88KeyLogic {
     return Piano88KeyLogic.getNeighbor(refKey, 1)
   }
 
+
+  /**
+   * Get the beautiful version of a key, without the number
+   */
+  static beautifyKey(keyId){
+    return keyId[0].toUpperCase() + (keyId.length === 3 ? '♭' : '')
+  }
 
 
 }

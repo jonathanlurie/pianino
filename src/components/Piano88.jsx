@@ -10,7 +10,7 @@ class Piano88 extends React.Component {
     this.state = {
       keysDown: [],
       keysHovered: []
-    };
+    }
 
     this.onKeyMouseDown = this.onKeyMouseDown.bind(this)
     this.onKeyMouseEnter = this.onKeyMouseEnter.bind(this)
@@ -30,7 +30,7 @@ class Piano88 extends React.Component {
 
 
   onKeyMouseDown(keyId){
-    console.log('mouse down', keyId);
+    // console.log('mouse down', keyId);
 
     let keyDown = [keyId]
 
@@ -45,11 +45,13 @@ class Piano88 extends React.Component {
     }
 
     this.setState({keysDown: keyDown})
+
+    this.props.onKeyDown(keyId)
   }
 
 
   onKeyMouseEnter(keyId){
-    console.log('mouse enter', keyId);
+    // console.log('mouse enter', keyId);
 
     let keyHovered = [keyId]
 
@@ -64,17 +66,20 @@ class Piano88 extends React.Component {
     }
 
     this.setState({keysHovered: keyHovered})
+    this.props.onKeyEnter(keyId)
   }
 
 
   onKeyMouseLeave(keyId){
     // console.log('mouse leave ', keyId);
     this.setState({keysHovered: []})
+    this.props.onKeyLeave(keyId)
   }
 
   onKeyMouseUp(keyId){
-    console.log('mouse up ', keyId);
+    // console.log('mouse up ', keyId);
     this.setState({keysDown: []})
+    this.props.onKeyUp()
   }
 
 

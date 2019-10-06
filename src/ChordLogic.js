@@ -4,6 +4,7 @@ import Piano88KeyLogic from './Piano88KeyLogic'
 // https://pianoin21days.com/basics-chord-inversions/
 // Seventh chords: https://www.musictheory.net/lessons/45
 // https://www.musictheory.net/lessons/47
+// https://www.wikiwand.com/en/Chord_names_and_symbols_(popular_music)#/Triads
 
 const chords = [
   {
@@ -12,7 +13,10 @@ const chords = [
       [0, 4, 7],  // standard, no invertion
       [12, 4, 7], // 1st inversion
       [12, 16, 7] // 2nd inversion
-    ]
+    ],
+    notation: function(root){
+      return `${Piano88KeyLogic.beautifyKey(root)}maj`
+    }
   },
 
   {
@@ -21,7 +25,10 @@ const chords = [
       [0, 3, 7],  // standard, no invertion
       [12, 3, 7], // 1st inversion
       [12, 15, 7] // 2nd inversion
-    ]
+    ],
+    notation: function(root){
+      return `${Piano88KeyLogic.beautifyKey(root)}min`
+    }
   },
 
   {
@@ -30,7 +37,10 @@ const chords = [
       [0, 4, 8],  // standard, no invertion
       [12, 4, 8], // 1st inversion
       [12, 16, 8] // 2nd inversion
-    ]
+    ],
+    notation: function(root){
+      return `${Piano88KeyLogic.beautifyKey(root)}aug`
+    }
   },
 
   {
@@ -39,7 +49,10 @@ const chords = [
       [0, 3, 6],  // standard, no invertion
       [12, 3, 6], // 1st inversion
       [12, 15, 6] // 2nd inversion
-    ]
+    ],
+    notation: function(root){
+      return `${Piano88KeyLogic.beautifyKey(root)}dim`
+    }
   },
 
   {
@@ -49,7 +62,10 @@ const chords = [
       [12, 4, 7, 11],  // 1st inversion
       [12, 16, 7, 11], // 2nd inversion
       [12, 16, 19, 11] // 3rd inversion
-    ]
+    ],
+    notation: function(root){
+      return `${Piano88KeyLogic.beautifyKey(root)}maj<sup>7</sup>`
+    }
   },
 
   {
@@ -59,7 +75,10 @@ const chords = [
       [12, 4, 5, 10],  // 1st inversion
       [12, 16, 5, 10], // 2nd inversion
       [12, 16, 17, 10] // 3rd inversion
-    ]
+    ],
+    notation: function(root){
+      return `${Piano88KeyLogic.beautifyKey(root)}<sup>7</sup>`
+    }
   },
 
   {
@@ -69,7 +88,10 @@ const chords = [
       [12, 4, 8, 11],  // 1st inversion
       [12, 16, 8, 11],  // 2nd inversion
       [12, 16, 20, 11] // 3rd inversion
-    ]
+    ],
+    notation: function(root){
+      return `${Piano88KeyLogic.beautifyKey(root)}aug<sup>7</sup>`
+    }
   },
 
   {
@@ -79,7 +101,10 @@ const chords = [
       [12, 3, 6, 10],  // 1st inversion
       [12, 15, 6, 10], // 2nd inversion
       [12, 15, 18, 10] // 3rd inversion
-    ]
+    ],
+    notation: function(root){
+      return `${Piano88KeyLogic.beautifyKey(root)}min<sup>7dim5</sup>`
+    }
   },
 
   {
@@ -89,7 +114,10 @@ const chords = [
       [12, 3, 6, 9],  // 1st inversion
       [12, 15, 6, 9], // 2nd inversion
       [12, 15, 18, 9] // 3rd inversion
-    ]
+    ],
+    notation: function(root){
+      return `${Piano88KeyLogic.beautifyKey(root)}dim<sup>7</sup>`
+    }
   }
 ]
 
