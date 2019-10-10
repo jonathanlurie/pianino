@@ -9,6 +9,13 @@ keyList.forEach((k, i) => keyLocation[k] = i)
 
 class Piano88KeyLogic {
 
+  /**
+   * Get the list of keys (as a copy)
+   * @return {Array} the key ids as strings
+   */
+  static getKeyList(){
+    return keyList.slice()
+  }
 
   /**
    * Get the index of a key, given its name

@@ -4,7 +4,9 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
+    "@jonathanlurie/eventmanager": "^0.1.0",
     "antd": "^3.23.5",
+    "beetmaker": "file:../beetmaker",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
     "react-scripts": "3.1.2",

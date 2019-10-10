@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import Piano88 from './components/Piano88'
 import ChordSelector from './components/ChordSelector'
 import KeyInfo from './components/KeyInfo'
+import soundEngine from './SoundEngine'
 import './App.css';
 
 const { Header, Content, Footer } = Layout;
@@ -15,6 +16,10 @@ class App extends React.Component {
     this.state = {
       keyDown: null
     }
+
+    this._soundEngine = soundEngine
+
+    this._soundEngine.loadSounds()
 
     this.onKeyUp = this.onKeyUp.bind(this)
     this.onKeyDown = this.onKeyDown.bind(this)
@@ -46,6 +51,7 @@ class App extends React.Component {
       onKeyDown={this.onKeyDown}
       onKeyEnter={this.onKeyEnter}
       onKeyLeave={this.onKeyLeave}
+      soundEngine={this._soundEngine}
     />
 
 
@@ -53,7 +59,7 @@ class App extends React.Component {
 
       <Layout className="layout">
         <Header>
-            <img src='./logo.png' className="logo" style={{background: 'none', width: 'auto'}}/>
+            <img src='./logo.png' className="logo" style={{background: 'none', width: 'auto', userSelect: 'none'}}/>
         </Header>
 
         <Content style={{ padding: '0 50px' }}>

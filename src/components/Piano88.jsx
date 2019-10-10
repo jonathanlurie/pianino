@@ -7,10 +7,18 @@ import ChordLogic from '../ChordLogic'
 class Piano88 extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       keysDown: [],
-      keysHovered: []
+      keysHovered: [],
+      keysSoundLoaded: []
     }
+
+
+    this.props.soundEngine.on('keySoundLoaded', keyId => {
+      this.state.keysSoundLoaded.push(keyId)
+      this.forceUpdate()
+    })
 
     this.onKeyMouseDown = this.onKeyMouseDown.bind(this)
     this.onKeyMouseEnter = this.onKeyMouseEnter.bind(this)
@@ -19,14 +27,14 @@ class Piano88 extends React.Component {
   }
 
 
-  pressKeys(keys){
-    let validKeysToAdd = keys.filter(k => Piano88KeyLogic.getIndex(k) !== null)
-      .filter(k => !this.state.keysDown.includes(k))
-
-    this.setState({
-      keysDown: [...this.state.keysDown, ...validKeysToAdd]
-    })
-  }
+  // pressKeys(keys){
+  //   let validKeysToAdd = keys.filter(k => Piano88KeyLogic.getIndex(k) !== null)
+  //     .filter(k => !this.state.keysDown.includes(k))
+  //
+  //   this.setState({
+  //     keysDown: [...this.state.keysDown, ...validKeysToAdd]
+  //   })
+  // }
 
 
   onKeyMouseDown(keyId){
@@ -45,7 +53,7 @@ class Piano88 extends React.Component {
     }
 
     this.setState({keysDown: keyDown})
-
+    keyDown.forEach(k => this.props.soundEngine.play(k))
     this.props.onKeyDown(keyId)
   }
 
@@ -77,9 +85,11 @@ class Piano88 extends React.Component {
   }
 
   onKeyMouseUp(keyId){
+    // this.state.keysDown.forEach(k => this.props.soundEngine.stop(k))
+    this.state.keysDown.forEach(k => this.props.soundEngine.setVolume(k, 0.5))
     // console.log('mouse up ', keyId);
     this.setState({keysDown: []})
-    this.props.onKeyUp()
+    this.props.onKeyUp(keyId)
   }
 
 
@@ -92,9 +102,15 @@ class Piano88 extends React.Component {
       fill: "#7fffd4"
     }
 
+    let keyLoaded = {
+      opacity: 1
+    }
+
     let keyStyle = {}
-    this.state.keysHovered.forEach(k => keyStyle[k] = keyHoveredStyle)
-    this.state.keysDown.forEach(k => keyStyle[k] = keyDownStyle)
+    this.state.keysHovered.forEach(k => keyStyle[k] = {...keyStyle[k], ...keyHoveredStyle})
+    this.state.keysDown.forEach(k => keyStyle[k] = {...keyStyle[k], ...keyDownStyle})
+
+    this.state.keysSoundLoaded.forEach(k => keyStyle[k] = {...keyStyle[k], ...keyLoaded})
 
 
     return (
