@@ -86,7 +86,8 @@ class Piano88 extends React.Component {
 
   onKeyMouseUp(keyId){
     // this.state.keysDown.forEach(k => this.props.soundEngine.stop(k))
-    this.state.keysDown.forEach(k => this.props.soundEngine.setVolume(k, 0.5))
+    // this.state.keysDown.forEach(k => this.props.soundEngine.setVolume(k, 0.5))
+    this.state.keysDown.forEach(k => this.props.soundEngine.fadeOut(k))
     // console.log('mouse up ', keyId);
     this.setState({keysDown: []})
     this.props.onKeyUp(keyId)

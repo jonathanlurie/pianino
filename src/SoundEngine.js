@@ -23,6 +23,7 @@ class SoundEngine extends EventManager{
       tracks.forEach((trk, i) => {
         let key = trk.getName().split('.')[0]
         let sample = new Beetmaker.Sample(trk, that._audioCtx, {name: key })
+        sample.setVolume(0.4)
         that._pianoSamples[key] = sample
         that.emit('keySoundLoaded', [key])
       })
@@ -41,7 +42,7 @@ class SoundEngine extends EventManager{
 
   play(keyId){
     if(keyId in this._pianoSamples){
-      this._pianoSamples[keyId].setVolume(1)
+      // this._pianoSamples[keyId].setVolume(0.4)
       this._pianoSamples[keyId].start()
     }else{
       console.log('PLAY Key sound not available')
@@ -63,6 +64,17 @@ class SoundEngine extends EventManager{
     }else{
       console.log('STOP Key sound not available')
     }
+  }
+
+  fadeOut(keyId, duration=1){
+    if(keyId in this._pianoSamples){
+      // this._pianoSamples[keyId].fadeOutLinear(duration)
+
+      this._pianoSamples[keyId].fadeOutExp(duration)
+    }else{
+      console.log('STOP Key sound not available')
+    }
+
   }
 
 
